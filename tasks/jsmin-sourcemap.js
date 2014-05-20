@@ -1,6 +1,15 @@
 var jsmin = require('jsmin-sourcemap'),
     path = require('path'),
     gruntRetro = require('grunt-retro');
+	
+function generateScript(srcFiles) {
+	var s = "";
+	srcFiles.forEach(function(file) {
+		s += "<script src='"+file+"'></script>\n";
+	});
+	return s;
+}
+	
 module.exports = function (grunt) {
   // Load and bind grunt-retro
   grunt = gruntRetro(grunt);
@@ -65,11 +74,20 @@ module.exports = function (grunt) {
     // Write out the code and map
     grunt.file.write(destFile, code);
     grunt.file.write(destMap, retObj.sourcemap);
+	
+	var destScript = data.destScript;
+	if (destScript) {
+		destScript = grunt.template.process(destScript);
+		destScript = path.join(cwd, destScript);
+		grunt.file.write(destScript, generateScript(srcFiles));
+	}
 
     // Fail task if errors were logged.
     if (this.errorCount) { return false; }
 
     // Otherwise, print a success message.
     grunt.log.writeln('Files "' + destFile + '", "' + destMap + '" created.');
+	if (destScript)
+		grunt.log.writeln('File "' + destScript+ '" created.');
   });
 };
