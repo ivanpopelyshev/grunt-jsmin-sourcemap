@@ -45,7 +45,7 @@ The demos in the [node-jsmin-sourcemap](https://github.com/twolfson/node-jsmin-s
 Add  this line into your package.json dependencies section
 
 ```js
-"grunt-jsmin-sourcemap": "https://github.com/ivanpopelyshev/grunt-jsmin-sourcemap"
+"grunt-jsmin-sourcemap": "git://github.com/ivanpopelyshev/grunt-jsmin-sourcemap"
 ```
 
 ## License
