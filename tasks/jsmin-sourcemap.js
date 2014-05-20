@@ -5,7 +5,7 @@ var jsmin = require('jsmin-sourcemap'),
 function generateScript(srcFiles) {
     var s = "";
     srcFiles.forEach(function(file) {
-        s += "document.write(\"<script src='"+file+"'></script>\");";
+        s += "document.write(\"<script src='"+file+"'></script>\");\n";
     });
     return s;
 }
