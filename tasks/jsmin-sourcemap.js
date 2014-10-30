@@ -2,10 +2,11 @@ var jsmin = require('jsmin-sourcemap'),
     path = require('path'),
     gruntRetro = require('grunt-retro');
     
-function generateScript(srcFiles) {
+function generateScript(srcFiles, prefix) {
     var s = "";
+    prefix = prefix || "";
     srcFiles.forEach(function(file) {
-        s += "document.write(\"<script src='/"+file+"'></script>\");\n";
+        s += "document.write(\"<script src='"+prefix+file+"'></script>\");\n";
     });
     return s;
 }
@@ -79,7 +80,7 @@ module.exports = function (grunt) {
     if (destScript) {
         destScript = grunt.template.process(destScript);
         destScript = path.join(cwd, destScript);
-        grunt.file.write(destScript, generateScript(srcFiles));
+        grunt.file.write(destScript, generateScript(srcFiles, data.destScriptPrefix));
     }
 
     // Fail task if errors were logged.
